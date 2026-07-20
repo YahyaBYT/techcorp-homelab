@@ -25,7 +25,20 @@ Built on VirtualBox — fully documented for portfolio and interview preparation
 
 ## 🗺️ Architecture
 
-> Diagram will be added after Phase 1.
+## ✅ Phase 2 Summary — Active Directory
+
+- Promoted Windows Server 2022 to Domain Controller (**techcorp.local**), static IP 192.168.10.10
+- Designed OU structure across 6 departments: IT, HR, Finance, Sales, Marketing, Management
+- Bulk-provisioned ~28 users via CSV + PowerShell automation
+- Created and populated department Security Groups (GG_IT, GG_HR, etc.) via script
+- Enforced domain-wide GPO security baseline:
+  - Password Policy: 10-char minimum, complexity required, 90-day rotation, 5-password history
+  - Account Lockout Policy: 5 failed attempts → 15-minute lockout
+- **Key troubleshooting:** resolved a GPO precedence conflict — password/lockout policy 
+  must be set on the *Default Domain Policy* at domain root, not a separately linked GPO, 
+  due to how Windows applies Local → Site → Domain → OU policy order
+
+**Scripts:** [`scripts/powershell/`](scripts/powershell/)
 
 ---
 
@@ -43,23 +56,6 @@ Built on VirtualBox — fully documented for portfolio and interview preparation
 | 7 | Security — Hardening + Wazuh SIEM | ⏳ Pending |
 | 8 | Automation — PowerShell + Bash | ⏳ Pending |
 | 9 | Capstone — Incident Response | ⏳ Pending |
-
----
-
-## ✅ Phase 2 Summary — Active Directory
-
-- Promoted Windows Server 2022 to Domain Controller (**techcorp.local**), static IP 192.168.10.10
-- Designed OU structure across 6 departments: IT, HR, Finance, Sales, Marketing, Management
-- Bulk-provisioned ~28 users via CSV + PowerShell automation
-- Created and populated department Security Groups (GG_IT, GG_HR, etc.) via script
-- Enforced domain-wide GPO security baseline:
-  - Password Policy: 10-char minimum, complexity required, 90-day rotation, 5-password history
-  - Account Lockout Policy: 5 failed attempts → 15-minute lockout
-- **Key troubleshooting:** resolved a GPO precedence conflict — password/lockout policy 
-  must be set on the *Default Domain Policy* at domain root, not a separately linked GPO, 
-  due to how Windows applies Local → Site → Domain → OU policy order
-
-**Scripts:** [`scripts/powershell/`](scripts/powershell/)
 
 ---
 
